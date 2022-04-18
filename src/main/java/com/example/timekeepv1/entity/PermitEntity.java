@@ -38,4 +38,7 @@ public class PermitEntity {
     @Basic
     @Column(name = "time_out")
     private Date timeOut;
+    @Basic
+    @Column(name = "is_cancel")
+    private Boolean isCancel;
 }

@@ -19,4 +19,5 @@ public class PermitOutputFullDto {
     private String timeOut;
     private String nameStaff;
     private String email;
+    private Boolean isCancel;
 }

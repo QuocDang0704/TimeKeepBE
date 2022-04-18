@@ -188,18 +188,25 @@ public class TimeKeepServiceImpl implements ITimeKeepService {
             if (lst.size() == 0 || lst.isEmpty()) return null;
             for (TimeKeepEntity x : lst) {
                 Date now = new Date();
+                Date now2 = new Date();
                 if (x.getStartTimeApproved().getDay() == now.getDay()
                         && x.getStartTime().getMonth() == now.getMonth()) {
                     x.setStatus(true);
-                    x.setStopTime(now);
+//                    x.setStopTime(now);
                     if (now.getHours() >= timeWork.getStopTime().getHours()) {
                         now.setHours(timeWork.getStopTime().getHours());
                         now.setMinutes(timeWork.getStopTime().getMinutes());
                         now.setSeconds(timeWork.getStopTime().getSeconds());
                         x.setStopTimeApproved(timeWork.getStopTime());
+
+
+                        if (x.getStartTime().getHours()>=timeWork.getStopTime().getHours()){
+                            x.setStopTimeApproved(now2);
+                        }
                     } else {
                         x.setStopTimeApproved(now);
                     }
+                    x.setStopTime(now2);
                     TimeKeepEntity temp = timeKeepRepository.save(x);
                     TimeKeepOutputFullDto outputFullDto = modelMapper.map(temp, TimeKeepOutputFullDto.class);
                     outputFullDto.setEmail(staff.getEmail());

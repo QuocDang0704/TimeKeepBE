@@ -50,6 +50,7 @@ public class PermitController {
             permitTemp.setId(null);
             permitTemp.setTimeOut(timeOut);
             permitTemp.setTimeIn(timeIn);
+            permitTemp.setIsCancel(false);
             PermitEntity permit = permitRepository.save(permitTemp);
             return new ResponseEntity<>(permit, HttpStatus.OK);
         }catch (Exception ex){
@@ -57,13 +58,16 @@ public class PermitController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @PutMapping("/approve")
     public ResponseEntity<PermitEntity> ApprovePermit(
             @RequestBody PermitApproveDto input){
         try {
             if (input.getStatus()==0){
-                timeKeepRepository.deleteById(input.getId());
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                PermitEntity permit = permitRepository.getById(input.getId());
+                permit.setIsCancel(true);
+                permit.setNote(input.getNote());
+                return new ResponseEntity<>(permitRepository.save(permit), HttpStatus.OK);
             }
             PermitEntity permit = permitRepository.getById(input.getId());
             permit.setNote(input.getNote());
