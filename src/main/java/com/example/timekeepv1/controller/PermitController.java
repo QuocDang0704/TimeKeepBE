@@ -54,7 +54,7 @@ public class PermitController {
             PermitEntity permit = permitRepository.save(permitTemp);
             return new ResponseEntity<>(permit, HttpStatus.OK);
         }catch (Exception ex){
-            ex.getMessage();
+            ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -121,6 +121,7 @@ public class PermitController {
             }
             return new ResponseEntity<>(lstOut, HttpStatus.OK);
         }catch (Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
