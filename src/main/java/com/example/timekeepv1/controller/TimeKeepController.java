@@ -21,8 +21,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/apiTimeKeeps")
 public class TimeKeepController {
-//    @Autowired
-//    private HttpServletRequest request;
     private final ITimeKeepService timeKeepService;
     private final ITimeKeepRepository timeKeepRepository;
 

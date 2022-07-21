@@ -6,15 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-//@RestController
 public class TimeKeepV1Application {
 
     public static void main(String[] args) {
         SpringApplication.run(TimeKeepV1Application.class, args);
     }
 
-//    @GetMapping("demo")
-//    public String demo(){
-//        return "abc";
-//    }
 }
