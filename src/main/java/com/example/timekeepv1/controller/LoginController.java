@@ -1,24 +1,39 @@
 package com.example.timekeepv1.controller;
 
 import com.example.timekeepv1.auth.GoogleSocail;
+import com.example.timekeepv1.auth.JwtResponse;
 import com.example.timekeepv1.auth.StaffOutPutLoginDto;
-import com.example.timekeepv1.dtos.staff.StaffOutputFullDto;
+import com.example.timekeepv1.security.jwt.JwtUtils;
+import com.example.timekeepv1.security.service.UserDetailsImpl;
 import com.example.timekeepv1.service.ILoginRedisService;
 import com.example.timekeepv1.service.IStaffService;
-import io.swagger.models.Response;
-import jdk.jshell.Snippet;
-import org.aspectj.bridge.Message;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/login")
 public class LoginController {
+    @Autowired
+    PasswordEncoder encoder;
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    JwtUtils jwtUtils;
+
     private final ModelMapper modelMapper = new ModelMapper();
     IStaffService staffService;
     ILoginRedisService loginRedisService;
@@ -78,6 +93,27 @@ public class LoginController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@RequestBody GoogleSocail loginRequest) {
+        System.out.println(encoder.encode("123"));
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getImage()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new JwtResponse(jwt,"Bearer",
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
+                roles));
     }
 
 }

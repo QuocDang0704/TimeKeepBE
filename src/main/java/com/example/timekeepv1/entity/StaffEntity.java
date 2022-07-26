@@ -37,5 +37,10 @@ public class StaffEntity {
     @Basic
     @Column(name = "id_time_work")
     private Integer idTimeWork;
-
+    @Basic
+    @Column(name = "username")
+    private String username;
+    @Basic
+    @Column(name = "password")
+    private String password;
 }

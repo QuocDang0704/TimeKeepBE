@@ -21,7 +21,8 @@ public class PositionEntity {
     private Integer id;
     @Basic
     @Column(name = "name_position")
-    private String namePosition;
+    @Enumerated(EnumType.STRING)
+    private EnumPosition namePosition;
     @Basic
     @Column(name = "role")
     public Integer role;

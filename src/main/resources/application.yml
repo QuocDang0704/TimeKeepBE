@@ -1,0 +1,4 @@
+quocdb:
+  app:
+    jwtSecret: quocdbSecretKey
+    jwtExpirationMs: 86400000

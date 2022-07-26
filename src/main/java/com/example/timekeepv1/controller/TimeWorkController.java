@@ -1,7 +1,5 @@
 package com.example.timekeepv1.controller;
 
-
-import com.example.timekeepv1.dtos.timekeep.TimeKeepOutputByMonthDto;
 import com.example.timekeepv1.dtos.timework.TimeWorkBaseDto;
 import com.example.timekeepv1.dtos.timework.TimeWorkOutputFullDto;
 import com.example.timekeepv1.entity.TimeWorkEntity;
@@ -20,7 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 //@CrossOrigin(origins = "http://localhost:8081")
 //@CrossOrigin("*")
-@RequestMapping(value = "/apiTimeWorks")
+@RequestMapping(value = "/api/timeWorks")
 public class TimeWorkController {
     private final ModelMapper modelMapper = new ModelMapper();
     @Autowired

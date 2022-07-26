@@ -213,7 +213,7 @@ public class TimeKeepServiceImpl implements ITimeKeepService {
                     outputFullDto.setNameStaff(staff.getName());
                     outputFullDto.setIdTimeWork(timeWork.getId());
                     outputFullDto.setIdPosition(position.getId());
-                    outputFullDto.setNamePosition(position.getNamePosition());
+                    outputFullDto.setNamePosition(position.getNamePosition().name());
                     return outputFullDto;
                 }
             }
@@ -269,7 +269,7 @@ public class TimeKeepServiceImpl implements ITimeKeepService {
                     x.setIdTimeWork(staff.getIdTimeWork());
                     int hours = (int) diffHours;
                     x.setHourAreCounted(hours);
-                    x.setNamePosition(position.getNamePosition());
+                    x.setNamePosition(position.getNamePosition().name());
                 }
             }
             return lstOut;
@@ -320,7 +320,7 @@ public class TimeKeepServiceImpl implements ITimeKeepService {
                     x.setIdTimeWork(staff.getIdTimeWork());
                     int hours = (int) diffHours;
                     x.setHourAreCounted(hours);
-                    x.setNamePosition(position.getNamePosition());
+                    x.setNamePosition(position.getNamePosition().name());
                 }
             }
             return lstOut;

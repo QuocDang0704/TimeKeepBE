@@ -2,9 +2,9 @@ package com.example.timekeepv1.controller;
 
 import com.example.timekeepv1.dtos.position.PositionBaseDto;
 import com.example.timekeepv1.dtos.position.PositionOutputFullDto;
+import com.example.timekeepv1.entity.EnumPosition;
 import com.example.timekeepv1.entity.PositionEntity;
 import com.example.timekeepv1.repository.IPositionRepository;
-import io.swagger.models.auth.In;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping( "/apiPositions")
+@RequestMapping( "/api/positions")
 public class PositionController {
     private final ModelMapper modelMapper = new ModelMapper();
 
@@ -71,7 +71,7 @@ public class PositionController {
             Optional<PositionEntity> positionData = positionRepository.findById(id);
             if (positionData.isPresent()) {
                 PositionEntity _position = positionData.get();
-                _position.setNamePosition(positionOutDto.getNamePosition());
+                _position.setNamePosition(EnumPosition.valueOf(positionOutDto.getNamePosition()));
                 _position.setRole(positionOutDto.getRole());
 
                 PositionOutputFullDto positionOutDto2 = modelMapper

@@ -100,7 +100,7 @@ public class StaffServiceImpl implements IStaffService {
             if (staffData.isPresent()) {
                 StaffEntity en = staffData.get();
                 StaffOutputFullDto staffDto = modelMapper.map(en, StaffOutputFullDto.class);
-                staffDto.setNamePosition(positionRepository.getById(staffDto.getIdPosition()).getNamePosition());
+                staffDto.setNamePosition(positionRepository.getById(staffDto.getIdPosition()).getNamePosition().name());
                 var position = positionRepository.findById(en.getIdPosition());
                 if (position.isPresent()) {
                     PositionBaseDto positionBaseDto = modelMapper.map(position.get(), PositionBaseDto.class);
@@ -153,13 +153,11 @@ public class StaffServiceImpl implements IStaffService {
     @Override
     public StaffOutputFullDto findStaffEntitiesByEmail(String email) {
         try {
-            System.out.println("-------------aaaaaaaaaaaaaaaa-----------");
             var staffData = staffRepository.findByEmail(email);
-            System.out.println("-------------bbbbbbbbbbbbbbb-----------");
             if (staffData.isPresent()) {
                 StaffEntity en = staffData.get();
                 StaffOutputFullDto outputFullDto = modelMapper.map(en, StaffOutputFullDto.class);
-                outputFullDto.setNamePosition(positionRepository.getById(outputFullDto.getIdPosition()).getNamePosition());
+                outputFullDto.setNamePosition(positionRepository.getById(outputFullDto.getIdPosition()).getNamePosition().name());
                 var position = positionRepository.findById(en.getIdPosition());
                 if (position.isPresent()) {
                     PositionBaseDto positionBaseDto = modelMapper.map(position.get(), PositionBaseDto.class);

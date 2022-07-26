@@ -13,6 +13,7 @@ import com.example.timekeepv1.repository.ITimeKeepRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping( "/permit")
+@RequestMapping( "/api/permits")
 public class PermitController {
     private final ModelMapper modelMapper = new ModelMapper();
     private final IPermitRepository permitRepository;
@@ -82,6 +83,7 @@ public class PermitController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PreAuthorize("hasAuthority('TRUONGPHONG')")
     @GetMapping("/permits")
     public ResponseEntity<List<PermitOutputFullDto>> getAll() {
         try {
