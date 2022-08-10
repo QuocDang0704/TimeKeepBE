@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping( "/api/permits")
+@CrossOrigin("*")
 public class PermitController {
     private final ModelMapper modelMapper = new ModelMapper();
     private final IPermitRepository permitRepository;

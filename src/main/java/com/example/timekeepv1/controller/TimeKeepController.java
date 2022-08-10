@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/timeKeeps")
+@CrossOrigin("*")
 public class TimeKeepController {
     private final ITimeKeepService timeKeepService;
     private final ITimeKeepRepository timeKeepRepository;

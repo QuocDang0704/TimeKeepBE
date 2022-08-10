@@ -3,6 +3,7 @@ package com.example.timekeepv1.auth;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,4 +21,8 @@ public class StaffOutPutLoginDto  implements Serializable {
     private String adress;
     private Integer idPosition;
     private String image;
+
+    private List<String> roles;
+    private String type = "Bearer";
+    private String token;
 }

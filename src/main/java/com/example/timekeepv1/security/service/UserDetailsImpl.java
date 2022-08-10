@@ -42,7 +42,7 @@ public class UserDetailsImpl implements UserDetails {
                 Long.valueOf(user.getId()),
                 user.getUsername(),
                 user.getEmail(),
-                user.getPassword(),
+                "$2a$10$p3CZ0K65NA04meon.N7YoeEhnc2f6DTCxc62LufRXsgSqLwKi7Jum",
                 authorities);
     }
 

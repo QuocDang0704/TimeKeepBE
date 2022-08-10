@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/staffs")
+@CrossOrigin("*")
 public class StaffController {
     private final StaffServiceImpl staffService;
 

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:8081")
-//@CrossOrigin("*")
+@CrossOrigin("*")
 @RequestMapping(value = "/api/timeWorks")
 public class TimeWorkController {
     private final ModelMapper modelMapper = new ModelMapper();

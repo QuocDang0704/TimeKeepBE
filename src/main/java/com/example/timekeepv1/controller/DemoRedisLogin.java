@@ -9,6 +9,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/redis")
+@CrossOrigin("*")
 public class DemoRedisLogin {
     private ILoginRedisService loginRedisService;
 
