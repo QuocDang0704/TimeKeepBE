@@ -53,7 +53,7 @@ public class LoginController {
             }
             var output = staffService.findStaffEntitiesByEmail(user.getEmail());
             if (output == null) {
-                throw new Exception("khong tim thay user theo email");
+                throw new Exception("khong tim thay user theo email: "+user.getEmail());
                 //return null;
             }
             var output2 = modelMapper.map(output, StaffOutPutLoginDto.class);
@@ -90,6 +90,18 @@ public class LoginController {
                 return null;
             }
             System.out.println("đã đi qua đây hihi về get");
+
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(email, "123"));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtUtils.generateJwtToken(authentication);
+
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
+
+            staff.setToken(jwt);
             return staff;
         } catch (Exception e) {
             e.printStackTrace();

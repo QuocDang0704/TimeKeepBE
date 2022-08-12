@@ -5,6 +5,7 @@ import com.example.timekeepv1.dtos.staff.StaffOutputFullDto;
 import com.example.timekeepv1.service.impl.StaffServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class StaffController {
 //        return new ResponseEntity<>(staffDtos, (!staffDtos.isEmpty()) ? (HttpStatus.OK) : (HttpStatus.NOT_FOUND));
 //    }
     @GetMapping("/staffs")
+    @PreAuthorize("hasAuthority('TRUONGPHONG')")
     public ResponseEntity<List<StaffOutputFullDto>> getAllPositions() {
         List<StaffOutputFullDto> staffDtos = staffService.getAll();
         if (staffDtos == null) new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
